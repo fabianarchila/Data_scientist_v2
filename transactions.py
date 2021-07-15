@@ -2,6 +2,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 
+#colors used in the figures
 colors_2 = ['Chocolate',] * 2
 colors_2[1] = 'crimson'
 colors = {
@@ -9,9 +10,11 @@ colors = {
     'text': '#000000',
     'b_2':'#EFEAEA',
 }
-transactions_data=pd.read_csv('transactions.csv')  
+transactions_data=pd.read_csv('transactions.csv')  # import transactions data
 
 
+#create the figures of Money traced per channel
+# sum the the values depending of the type direction
 dff = transactions_data.groupby(["money_transaction_type_direction"]).balance_historic_transaction_value.sum().reset_index()
 
 fig_3 = go.Figure(data=[go.Bar(
@@ -31,11 +34,13 @@ fig_3.update_layout(title={'text': 'Money traced per channel','y':0.8,'x':0.5,'x
         color="FireBrick"
     ))
 
+
+#create the figure of Temporary variation the amount saved by users
 temp=transactions_data.copy()
-temp['balance_historic_transaction_date']=temp['balance_historic_transaction_date'].str.slice(0,10)
-temp['balance_historic_transaction_value']=temp['balance_historic_transaction_value']*temp['money_transaction_type_direction'].apply(lambda x:-1 if (x=='cash_out')else 1)
-df_2=temp.groupby(['balance_historic_transaction_date']).balance_historic_transaction_value.sum().reset_index()
-df_2=df_2.sort_values('balance_historic_transaction_date')
+temp['balance_historic_transaction_date']=temp['balance_historic_transaction_date'].str.slice(0,10) # stablished in days
+temp['balance_historic_transaction_value']=temp['balance_historic_transaction_value']*temp['money_transaction_type_direction'].apply(lambda x:-1 if (x=='cash_out')else 1) #Pass the cash_out negative
+df_2=temp.groupby(['balance_historic_transaction_date']).balance_historic_transaction_value.sum().reset_index() # Cash_in -cash_out
+df_2=df_2.sort_values('balance_historic_transaction_date') # Organaze in time order
 # print(df_2)
 
 fig_4 = go.Figure(data=[go.Bar(

@@ -7,9 +7,6 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash_html_components.Div import Div
-from pandas.io.formats import style
-import plotly.express as px
 import pandas as pd
 from users import fig_1,fig_2, fig_5, fig_6
 from dash.dependencies import Input, Output
