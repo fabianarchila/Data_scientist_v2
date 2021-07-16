@@ -41,7 +41,7 @@ temp['balance_historic_transaction_date']=temp['balance_historic_transaction_dat
 temp['balance_historic_transaction_value']=temp['balance_historic_transaction_value']*temp['money_transaction_type_direction'].apply(lambda x:-1 if (x=='cash_out')else 1) #Pass the cash_out negative
 df_2=temp.groupby(['balance_historic_transaction_date']).balance_historic_transaction_value.sum().reset_index() # Cash_in -cash_out
 df_2=df_2.sort_values('balance_historic_transaction_date') # Organaze in time order
-df_2_2019=df_2[df_2['balance_historic_transaction_date']<'2020-01-01']
+df_2_2019=df_2[df_2['balance_historic_transaction_date']<'2020-01-01'] #Its 
 df_2_year=df_2[df_2['balance_historic_transaction_date']>'2019-12-31']
 df_2_2020=df_2_year[df_2_year['balance_historic_transaction_date']<'2021-01-01']
 df_2_2021=df_2_year[df_2_year['balance_historic_transaction_date']>'2020-12-31']
