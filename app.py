@@ -10,7 +10,7 @@ import dash_html_components as html
 import pandas as pd
 from users_code import fig_1,fig_2, fig_5, fig_6
 from dash.dependencies import Input, Output
-from transactions_code import fig_3, fig_4
+from transactions_code import fig_3, fig_4,fig_4_1,fig_4_2,fig_4_3
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -67,8 +67,16 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
         
     ],className='row'),
-    dcc.Graph(id='variation_graph',figure=fig_4)
     
+    dcc.Graph(id='variation_graph'),
+    dcc.RadioItems(
+        id='select_date_ouput_ult',
+        options=[{'label': x, 'value': x} 
+                 for x in ['All', '2019','2020','2021']],
+        value='All',
+        labelStyle={'display': 'inline-block','color': 'DarkRed','font-family': 'serif',
+            'font-weight': 'bold'}
+    ),
     
 ])
 @app.callback(
@@ -82,6 +90,22 @@ def display_graph(marginal):
         fig=fig_2
 
     return fig
+
+@app.callback(
+    Output("variation_graph","figure"
+    ),[Input("select_date_ouput_ult","value")]
+)
+def display_graph_2(date):
+    fig_t=0
+    if date=="All":
+        fig_t=fig_4
+    elif date=="2019":
+        fig_t=fig_4_1
+    elif date=="2020":
+        fig_t=fig_4_2
+    else:
+        fig_t=fig_4_3
+    return fig_t
 
 
 if __name__ == '__main__':

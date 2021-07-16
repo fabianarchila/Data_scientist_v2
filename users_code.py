@@ -120,7 +120,6 @@ fig_6.update_layout(title={'text': 'Ecosystem money saved','y':0.8,'x':0.5,'xanc
         color="FireBrick"
     ))
 
-
  
 
 

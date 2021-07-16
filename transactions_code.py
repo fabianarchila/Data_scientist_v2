@@ -41,7 +41,11 @@ temp['balance_historic_transaction_date']=temp['balance_historic_transaction_dat
 temp['balance_historic_transaction_value']=temp['balance_historic_transaction_value']*temp['money_transaction_type_direction'].apply(lambda x:-1 if (x=='cash_out')else 1) #Pass the cash_out negative
 df_2=temp.groupby(['balance_historic_transaction_date']).balance_historic_transaction_value.sum().reset_index() # Cash_in -cash_out
 df_2=df_2.sort_values('balance_historic_transaction_date') # Organaze in time order
-# print(df_2)
+df_2_2019=df_2[df_2['balance_historic_transaction_date']<'2020-01-01']
+df_2_year=df_2[df_2['balance_historic_transaction_date']>'2019-12-31']
+df_2_2020=df_2_year[df_2_year['balance_historic_transaction_date']<'2021-01-01']
+df_2_2021=df_2_year[df_2_year['balance_historic_transaction_date']>'2020-12-31']
+
 
 fig_4 = go.Figure(data=[go.Bar(
     x=df_2['balance_historic_transaction_date'],
@@ -50,6 +54,59 @@ fig_4 = go.Figure(data=[go.Bar(
 )])
 
 fig_4.update_layout(title={'text': 'Temporary variation of the amount saved by users','y':0.8,'x':0.5,'xanchor': 'center','yanchor': 'bottom'},
+        xaxis_title="Date",
+        yaxis_title="Money",
+        plot_bgcolor=colors['b_2'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text'],
+        font=dict(
+        family="bold",
+        size=18,
+        color="FireBrick"
+    ))
+
+fig_4_1 = go.Figure(data=[go.Bar(
+    x=df_2_2019['balance_historic_transaction_date'],
+    y=df_2_2019['balance_historic_transaction_value'],
+    marker_color='black' # marker color can be a single color value or an iterable
+)])
+
+fig_4_1.update_layout(title={'text': 'Temporary variation of the amount saved by users','y':0.8,'x':0.5,'xanchor': 'center','yanchor': 'bottom'},
+        xaxis_title="Date",
+        yaxis_title="Money",
+        plot_bgcolor=colors['b_2'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text'],
+        font=dict(
+        family="bold",
+        size=18,
+        color="FireBrick"
+    ))
+
+fig_4_2 = go.Figure(data=[go.Bar(
+    x=df_2_2020['balance_historic_transaction_date'],
+    y=df_2_2020['balance_historic_transaction_value'],
+    marker_color='black' # marker color can be a single color value or an iterable
+)])
+
+fig_4_2.update_layout(title={'text': 'Temporary variation of the amount saved by users','y':0.8,'x':0.5,'xanchor': 'center','yanchor': 'bottom'},
+        xaxis_title="Date",
+        yaxis_title="Money",
+        plot_bgcolor=colors['b_2'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text'],
+        font=dict(
+        family="bold",
+        size=18,
+        color="FireBrick"
+    ))
+fig_4_3 = go.Figure(data=[go.Bar(
+    x=df_2_2021['balance_historic_transaction_date'],
+    y=df_2_2021['balance_historic_transaction_value'],
+    marker_color='black' # marker color can be a single color value or an iterable
+)])
+
+fig_4_3.update_layout(title={'text': 'Temporary variation of the amount saved by users','y':0.8,'x':0.5,'xanchor': 'center','yanchor': 'bottom'},
         xaxis_title="Date",
         yaxis_title="Money",
         plot_bgcolor=colors['b_2'],
