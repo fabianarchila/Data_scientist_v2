@@ -8,9 +8,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
-from users import fig_1,fig_2, fig_5, fig_6
+from users_code import fig_1,fig_2, fig_5, fig_6
 from dash.dependencies import Input, Output
-from transactions import fig_3, fig_4
+from transactions_code import fig_3, fig_4
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
